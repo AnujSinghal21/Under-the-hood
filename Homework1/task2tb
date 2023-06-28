@@ -1,0 +1,64 @@
+#! /usr/bin/vvp
+:ivl_version "10.3 (stable)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "system";
+:vpi_module "vhdl_sys";
+:vpi_module "v2005_math";
+:vpi_module "va_math";
+S_0x55b357db3070 .scope module, "tb" "tb" 2 2;
+ .timescale 0 0;
+v0x55b357dfa2d0_0 .var "A", 0 0;
+v0x55b357dfa370_0 .var "B", 0 0;
+v0x55b357dfa440_0 .net "C", 0 0, L_0x55b357dfa8a0;  1 drivers
+S_0x55b357db31f0 .scope module, "xnorgate0" "xnor_gate" 2 5, 3 1 0, S_0x55b357db3070;
+ .timescale 0 0;
+    .port_info 0 /INPUT 1 "A"
+    .port_info 1 /INPUT 1 "B"
+    .port_info 2 /OUTPUT 1 "C"
+L_0x55b357dfa540 .functor NOT 1, v0x55b357dfa2d0_0, C4<0>, C4<0>, C4<0>;
+L_0x55b357dfa630 .functor OR 1, L_0x55b357dfa540, v0x55b357dfa370_0, C4<0>, C4<0>;
+L_0x55b357dfa740 .functor NOT 1, v0x55b357dfa370_0, C4<0>, C4<0>, C4<0>;
+L_0x55b357dfa7b0 .functor OR 1, v0x55b357dfa2d0_0, L_0x55b357dfa740, C4<0>, C4<0>;
+L_0x55b357dfa8a0 .functor AND 1, L_0x55b357dfa630, L_0x55b357dfa7b0, C4<1>, C4<1>;
+v0x55b357de8930_0 .net "A", 0 0, v0x55b357dfa2d0_0;  1 drivers
+v0x55b357df9d20_0 .net "B", 0 0, v0x55b357dfa370_0;  1 drivers
+v0x55b357df9de0_0 .net "C", 0 0, L_0x55b357dfa8a0;  alias, 1 drivers
+v0x55b357df9e80_0 .net *"_s0", 0 0, L_0x55b357dfa540;  1 drivers
+v0x55b357df9f60_0 .net *"_s2", 0 0, L_0x55b357dfa630;  1 drivers
+v0x55b357dfa090_0 .net *"_s4", 0 0, L_0x55b357dfa740;  1 drivers
+v0x55b357dfa170_0 .net *"_s6", 0 0, L_0x55b357dfa7b0;  1 drivers
+    .scope S_0x55b357db3070;
+T_0 ;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x55b357dfa2d0_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x55b357dfa370_0, 0, 1;
+    %delay 2, 0;
+    %vpi_call 2 10 "$monitor", "A = %b, B = %b, A or B = %b", v0x55b357dfa2d0_0, v0x55b357dfa370_0, v0x55b357dfa440_0 {0 0 0};
+    %pushi/vec4 20, 0, 32;
+T_0.0 %dup/vec4;
+    %pushi/vec4 0, 0, 32;
+    %cmp/s;
+    %jmp/1xz T_0.1, 5;
+    %jmp/1 T_0.1, 4;
+    %pushi/vec4 1, 0, 32;
+    %sub;
+    %vpi_func 2 12 "$random" 32 {0 0 0};
+    %pad/s 1;
+    %store/vec4 v0x55b357dfa2d0_0, 0, 1;
+    %vpi_func 2 13 "$random" 32 {0 0 0};
+    %pad/s 1;
+    %store/vec4 v0x55b357dfa370_0, 0, 1;
+    %delay 15, 0;
+    %jmp T_0.0;
+T_0.1 ;
+    %pop/vec4 1;
+    %end;
+    .thread T_0;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "task2_tb.v";
+    "./task2.v";
